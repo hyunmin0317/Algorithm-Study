@@ -1,24 +1,15 @@
-computers = [[1, 1, 0], [1, 1, 0], [0, 0, 1]]
-result = []
-n = len(computers)
+def solution(n, computers):
+    answer = 0
+    visited = [False for i in range(n)]
+    for com in range(n):
+        if visited[com] == False:
+            DFS(n, computers, com, visited)
+            answer += 1
+    return answer
 
-for i in range(n):
-    for j in range(n):
-        if (computers[i][j]):
-            result.append([i, j])
-
-print(result)
-
-for r in result:
-    print(r)
-
-
-
-# array1 = [1, 1]
-# array2 = [1, 2]
-# array1.extend(array2)
-# array1 = set(array1)
-#
-# print(array1)
-
-
+def DFS(n, computers, com, visited):
+    visited[com] = True
+    for connect in range(n):
+        if connect != com and computers[com][connect] == 1:
+            if visited[connect] == False:
+                DFS(n, computers, connect, visited)
