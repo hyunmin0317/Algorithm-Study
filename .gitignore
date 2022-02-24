@@ -80,8 +80,11 @@ local.properties
 .idea/**/dictionaries
 .idea/**/shelf
 ./python/.idea/
+/python/.idea/
+python/.idea/
 ./java/.idea/
-
+/java/.idea/
+java/.idea/
 # AWS User-specific
 .idea/**/aws.xml
 
