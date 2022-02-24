@@ -4,23 +4,23 @@ public class Main {
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
 		int N = sc.nextInt();;
-		int[] array = new int[N];
+		String[] array = new String[N];
 		for(int i=0;i<N;i++) {
-			array[i]=sc.nextInt();
+			array[i]=sc.next();
 		}
 
 		sort(array, N);
 
-		for (int num:array)
+		for (String num:array)
 			System.out.println(num);
 
 	}
 
-	static void sort(int[] arr, int N) {
-		int temp = 0;
+	static void sort(String[] arr, int N) {
+		String temp;
 		for(int i = 0; i < N - 1; i++) {
 			for(int j= 1 ; j < N-i; j++) {
-				if(arr[j]>arr[j-1]) {
+				if(Integer.parseInt(arr[j - 1] + arr[j]) < Integer.parseInt(arr[j] + arr[j - 1])) {
 					temp = arr[j-1];
 					arr[j-1] = arr[j];
 					arr[j] = temp;
