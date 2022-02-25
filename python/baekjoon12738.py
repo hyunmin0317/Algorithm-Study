@@ -19,5 +19,4 @@ for i in range(1, N):
         idx = binary_search(0, len(lis)-1, numbers[i])
         lis[idx] = numbers[i]
 
-print(lis)
 print(len(lis))
