@@ -1,15 +1,16 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
 	public static void main(String[] args) {
+		ArrayList list = new ArrayList();
 		Scanner sc = new Scanner(System.in);
-		int n = 1;
+		int n = sc.nextInt();
 
-		while (true) {
-			n=sc.nextInt();
-			if (n==0)
-				break;
-			System.out.println(count(n));
+		for (int i=0; i<n; i++) {
+			int num = sc.nextInt();
+			list.add(num);
+			goldbach((Integer) list.get(i));
 		}
 	}
 
@@ -22,12 +23,16 @@ public class Main {
 		return true;
 	}
 
-	public static int count(int num) {
-		int cnt=0;
-		for (int i=num+1;i<=num*2;i++) {
-			if (isPrime(i))
-				cnt++;
+	public static void goldbach(int num) {
+		int start = num/2;
+		int end = num/2;
+		while (true) {
+			if (isPrime(start)&&isPrime(end)) {
+				System.out.println(start+" "+end);
+				break;
+			}
+			start--;
+			end++;
 		}
-		return cnt;
 	}
 }
