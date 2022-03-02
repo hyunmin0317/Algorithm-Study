@@ -6,23 +6,26 @@ import static java.lang.Math.*;
 public class Main {
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
-		int N = sc.nextInt();
-
-		for (int i=0; i<N; i++) {
-			int x1 = sc.nextInt(), y1 = sc.nextInt(), r1 = sc.nextInt();
-			int x2 = sc.nextInt(), y2 = sc.nextInt(), r2 = sc.nextInt();
-			double length = sqrt(pow((x1-x2), 2) + pow((y1-y2), 2));
-
-			if (x1==x2&&y1==y2&&r1==r2)
-				System.out.println(-1);
-			else {
-				if (r1+r2>length && abs(r1-r2)<length)
-					System.out.println(2);
-				else if (r1+r2==length || abs(r1-r2)==length)
-					System.out.println(1);
-				else	// r1+r2<length || abs(r1-r2)>length
-					System.out.println(0);
-			}
+		int x,y,z;
+		int max, mid, min;
+		while (true) {
+			x=sc.nextInt();
+			y=sc.nextInt();
+			z=sc.nextInt();
+			if (x==0 && y==0 && z==0)
+				break;
+			confirm(x, y, z);
 		}
+	}
+	public static void confirm(int x, int y, int z) {
+		int big, small, middle;
+		big = (x>y)&&(x>z)?x:(z>y?z:y);
+		small = (y>x)&&(z>x)?x:(y>z?z:y);
+		middle = (x>y)?((x>z)?((y>z)?y:z):x):((y>z)?((x>z)?x:z):y);
+
+		if (pow(big,2)==pow(small,2)+pow(middle,2))
+			System.out.println("right");
+		else
+			System.out.println("wrong");
 	}
 }
