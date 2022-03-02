@@ -6,26 +6,28 @@ import static java.lang.Math.*;
 public class Main {
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
-		int x,y,z;
-		int max, mid, min;
-		while (true) {
-			x=sc.nextInt();
-			y=sc.nextInt();
-			z=sc.nextInt();
-			if (x==0 && y==0 && z==0)
-				break;
-			confirm(x, y, z);
+		int num, N = sc.nextInt();
+		for (int i=0; i<N; i++) {
+			num = sc.nextInt();
+			System.out.println(fibonacci0(num)+" "+fibonacci1(num));
 		}
 	}
-	public static void confirm(int x, int y, int z) {
-		int big, small, middle;
-		big = (x>y)&&(x>z)?x:(z>y?z:y);
-		small = (y>x)&&(z>x)?x:(y>z?z:y);
-		middle = (x>y)?((x>z)?((y>z)?y:z):x):((y>z)?((x>z)?x:z):y);
+	public static int fibonacci0(int n) {
+		Integer[] array = new Integer[n+2];
+		array[0] = 1;
+		array[1] = 0;
 
-		if (pow(big,2)==pow(small,2)+pow(middle,2))
-			System.out.println("right");
-		else
-			System.out.println("wrong");
+		for (int i=2; i<=n;i++)
+			array[i] = array[i-2] + array[i-1];
+		return array[n];
+	}
+	public static int fibonacci1(int n) {
+		Integer[] array = new Integer[n+2];
+		array[0] = 0;
+		array[1] = 1;
+
+		for (int i=2; i<=n;i++)
+			array[i] = array[i-2] + array[i-1];
+		return array[n];
 	}
 }
