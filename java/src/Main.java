@@ -1,38 +1,28 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import static java.lang.Math.*;
+
 public class Main {
 	public static void main(String[] args) {
-		ArrayList list = new ArrayList();
 		Scanner sc = new Scanner(System.in);
-		int n = sc.nextInt();
+		int N = sc.nextInt();
 
-		for (int i=0; i<n; i++) {
-			int num = sc.nextInt();
-			list.add(num);
-			goldbach((Integer) list.get(i));
-		}
-	}
+		for (int i=0; i<N; i++) {
+			int x1 = sc.nextInt(), y1 = sc.nextInt(), r1 = sc.nextInt();
+			int x2 = sc.nextInt(), y2 = sc.nextInt(), r2 = sc.nextInt();
+			double length = sqrt(pow((x1-x2), 2) + pow((y1-y2), 2));
 
-	public static boolean isPrime(int n) {
-		if (n < 2)
-			return false;
-		for (int i = 2; i<=(int)Math.sqrt(n); i++)
-			if (n % i == 0)
-				return false;
-		return true;
-	}
-
-	public static void goldbach(int num) {
-		int start = num/2;
-		int end = num/2;
-		while (true) {
-			if (isPrime(start)&&isPrime(end)) {
-				System.out.println(start+" "+end);
-				break;
+			if (x1==x2&&y1==y2&&r1==r2)
+				System.out.println(-1);
+			else {
+				if (r1+r2>length && abs(r1-r2)<length)
+					System.out.println(2);
+				else if (r1+r2==length || abs(r1-r2)==length)
+					System.out.println(1);
+				else	// r1+r2<length || abs(r1-r2)>length
+					System.out.println(0);
 			}
-			start--;
-			end++;
 		}
 	}
 }
