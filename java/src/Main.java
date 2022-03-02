@@ -3,13 +3,13 @@ import java.util.Scanner;
 public class Main {
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
-		int M = sc.nextInt();
-		int N = sc.nextInt();
+		int n = 1;
 
-		for(int i=M; i<=N; i++) {
-			if (isPrime(i)) {
-				System.out.println(i);
-			}
+		while (true) {
+			n=sc.nextInt();
+			if (n==0)
+				break;
+			System.out.println(count(n));
 		}
 	}
 
@@ -20,5 +20,14 @@ public class Main {
 			if (n % i == 0)
 				return false;
 		return true;
+	}
+
+	public static int count(int num) {
+		int cnt=0;
+		for (int i=num+1;i<=num*2;i++) {
+			if (isPrime(i))
+				cnt++;
+		}
+		return cnt;
 	}
 }
