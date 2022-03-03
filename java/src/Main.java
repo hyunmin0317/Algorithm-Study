@@ -1,38 +1,35 @@
 import java.util.Scanner;
 
-import static java.lang.Math.*;
+import static java.lang.Math.abs;
 
 public class Main {
-	static int N, r, c;
-	static int count=0;
+	static int N, M, result;
+	static boolean[] number = new boolean[10];
 
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
-		N = (int) pow(2, sc.nextInt());
-		r = sc.nextInt();
-		c = sc.nextInt();
-		find(N, r, c);
-		System.out.println(count);
-	}
+		N = sc.nextInt();
+		M = sc.nextInt();
+		for (int i=0; i<M; i++)
+			number[sc.nextInt()] = true;
 
-	private static void find(int size, int r, int c) {
-		if(size == 1)
-			return;
+		result = abs(N - 100);
+		for (int i=0; i<1000000; i++) {
+			String num = String.valueOf(i);
+			int len = num.length();
+			boolean Break = false;
 
-		if(r < size/2 && c < size/2) {
-			find(size/2, r, c);
+			for (int j=0; j<len; j++) {
+				if (number[num.charAt(j) - '0']) {
+					Break = true;
+					break;
+				}
+			}
+			if(!Break) {
+				int min = Math.abs(N - i) + len;
+				result = Math.min(min, result);
+			}
 		}
-		else if(r < size/2 && c >= size/2) {
-			count += size * size / 4;
-			find(size/2, r, c - size/2);
-		}
-		else if(r >= size/2 && c < size/2) {
-			count += (size * size / 4) * 2;
-			find(size/2, r - size/2, c);
-		}
-		else {
-			count += (size * size / 4) * 3;
-			find(size/2, r - size/2, c - size/2);
-		}
+		System.out.println(result);
 	}
 }
