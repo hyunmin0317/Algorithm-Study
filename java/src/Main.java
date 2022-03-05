@@ -1,35 +1,60 @@
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.Scanner;
 
-import static java.lang.Math.abs;
-
 public class Main {
-	static int N, M, result;
-	static boolean[] number = new boolean[10];
+	static Queue<Integer> queue;
+	static boolean[][] vertex;
+	static boolean[] visit;
+	static int MAX = 1001;
+	static int N, M, V;
+
+	public static void dfs(int i) {
+		System.out.print(i+" ");
+		visit[i] = true;
+
+		for (int j=1;j<=N;j++) {
+			if (vertex[i][j] && !visit[j])
+				dfs(j);
+		}
+	}
+
+	public static void bfs(int i) {
+		System.out.print(i + " ");
+		visit[i] = true;
+		queue.offer(i);
+
+		while(!queue.isEmpty()) {
+			int temp = queue.poll();
+			for(int j = 1; j <= N; j++) {
+				if(vertex[temp][j] && !visit[j]) {
+					System.out.print(j + " ");
+					visit[j] = true;
+					queue.offer(j);
+				}
+			}
+		}
+	}
 
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
+		queue = new LinkedList();
+		vertex = new boolean[MAX][MAX];
+		visit = new boolean[MAX];
+
 		N = sc.nextInt();
 		M = sc.nextInt();
-		for (int i=0; i<M; i++)
-			number[sc.nextInt()] = true;
+		V = sc.nextInt();
 
-		result = abs(N - 100);
-		for (int i=0; i<1000000; i++) {
-			String num = String.valueOf(i);
-			int len = num.length();
-			boolean Break = false;
-
-			for (int j=0; j<len; j++) {
-				if (number[num.charAt(j) - '0']) {
-					Break = true;
-					break;
-				}
-			}
-			if(!Break) {
-				int min = Math.abs(N - i) + len;
-				result = Math.min(min, result);
-			}
+		for (int i=0; i<M; i++) {
+			int x = sc.nextInt();
+			int y = sc.nextInt();
+			vertex[x][y] = vertex[y][x] = true;
 		}
-		System.out.println(result);
+
+		dfs(V);
+		System.out.println();
+		visit = new boolean[MAX];
+		bfs(V);
 	}
 }
