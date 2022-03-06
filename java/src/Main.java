@@ -1,26 +1,15 @@
-import java.util.LinkedList;
-import java.util.Queue;
-import java.util.Scanner;
+import java.util.*;
 
 public class Main {
 	static Queue<Integer> queue;
 	static boolean[][] vertex;
 	static boolean[] visit;
-	static int MAX = 1001;
-	static int N, M, V;
+	static int[] values;
+	static int MAX = 101;
+	static int N, M;
 
-	public static void dfs(int i) {
-		System.out.print(i+" ");
-		visit[i] = true;
-
-		for (int j=1;j<=N;j++) {
-			if (vertex[i][j] && !visit[j])
-				dfs(j);
-		}
-	}
-
-	public static void bfs(int i) {
-		System.out.print(i + " ");
+	public static int bfs(int i) {
+		int sum=0;
 		visit[i] = true;
 		queue.offer(i);
 
@@ -28,33 +17,50 @@ public class Main {
 			int temp = queue.poll();
 			for(int j = 1; j <= N; j++) {
 				if(vertex[temp][j] && !visit[j]) {
-					System.out.print(j + " ");
 					visit[j] = true;
 					queue.offer(j);
+					values[j] = values[temp]+1;
 				}
 			}
 		}
+
+		for (var value:values)
+			sum += value;
+		return sum;
 	}
 
 	public static void main(String[] args) {
+		int min=Integer.MAX_VALUE;
+		int num, ans=0;
 		Scanner sc = new Scanner(System.in);
+		List<Integer> numbers = new ArrayList();
 		queue = new LinkedList();
 		vertex = new boolean[MAX][MAX];
-		visit = new boolean[MAX];
 
 		N = sc.nextInt();
 		M = sc.nextInt();
-		V = sc.nextInt();
 
 		for (int i=0; i<M; i++) {
 			int x = sc.nextInt();
 			int y = sc.nextInt();
+
+			if (!numbers.contains(x))
+				numbers.add(x);
+			if (!numbers.contains(y))
+				numbers.add(y);
 			vertex[x][y] = vertex[y][x] = true;
 		}
+		Collections.sort(numbers);
 
-		dfs(V);
-		System.out.println();
-		visit = new boolean[MAX];
-		bfs(V);
+		for (var number:numbers) {
+			visit = new boolean[MAX];
+			values = new int[MAX];
+			num = bfs(number);
+			if (min>num) {
+				min = num;
+				ans = number;
+			}
+		}
+		System.out.println(ans);
 	}
 }
