@@ -1,24 +1,24 @@
 import java.util.Scanner;
-import static java.lang.Math.min;
 
 public class Main {
-	static int N, num;
-	static int MAX=1000001;
-	static int[] cal= new int[MAX];
+	public static int cal(String number) {
+		int sum=0;
+		String[] numbers = number.split("\\+");
+		for (var num: numbers)
+			sum+=Integer.parseInt(num);
+		return sum;
+	}
 
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
-		N = sc.nextInt();
+		int sum;
+		String[] plus;
+		String str = sc.nextLine();
+		String[] numbers = str.split("-");
 
-		cal[1] = 0;
-		for (int i=2;i<=N;i++) {
-			num=cal[i-1];
-			if (i%2==0)
-				num = min(num,cal[i/2]);
-			if (i%3==0)
-				num = min(num,cal[i/3]);
-			cal[i] = num+1;
-		}
-		System.out.println(cal[N]);
+		sum = cal(numbers[0]);
+		for (int i=1;i<numbers.length;i++)
+			sum -= cal(numbers[i]);
+		System.out.println(sum);
 	}
 }
