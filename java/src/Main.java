@@ -1,45 +1,27 @@
 import java.util.*;
 
 public class Main {
-	static int[] visit;
+	public static void main(String[] args) {
+		int N, M, i;
+		String word;
+		Scanner sc = new Scanner(System.in);
+		HashSet<String> array = new HashSet();
+		List<String> list = new ArrayList();
 
-	public static int bfs(int start, int target) {
-		Queue<Integer> queue = new LinkedList();
-		queue.offer(start);
-		visit[start]++;
+		N=sc.nextInt();
+		M=sc.nextInt();
 
-		while(!queue.isEmpty()) {
-			int n = queue.poll();
-
-			if (n == target)
-				return visit[n]-1;
-
-			if (n-1>=0 && visit[n-1] == 0) {
-				visit[n-1] = visit[n]+1;
-				queue.offer(n-1);
-			}
-
-			if (n+1 <= 100000 && visit[n+1] == 0) {
-				visit[n+1] = visit[n]+1;
-				queue.offer(n+1);
-			}
-
-			if (2*n <= 100000 && visit[2*n] == 0) {
-				visit[2*n] = visit[n]+1;
-				queue.offer(2*n);
+		for (i=0; i<N; i++)
+			array.add(sc.next());
+		for (i=0; i<M; i++) {
+			word = sc.next();
+			if (array.contains(word)) {
+				list.add(word);
 			}
 		}
-		return -1;
-	}
-
-	public static void main(String[] args) {
-		int N, K, MAX=100001;
-
-		visit = new int[MAX];
-		Scanner sc = new Scanner(System.in);
-		N = sc.nextInt();
-		K = sc.nextInt();
-
-		System.out.println(bfs(N, K));
+		Collections.sort(list);
+		System.out.println(list.size());
+		for (var w : list)
+			System.out.println(w);
 	}
 }
