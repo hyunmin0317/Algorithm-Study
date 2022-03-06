@@ -1,27 +1,20 @@
 import java.util.*;
 
 public class Main {
-	public static void main(String[] args) {
-		int N, M, i;
-		String word;
-		Scanner sc = new Scanner(System.in);
-		HashSet<String> array = new HashSet();
-		List<String> list = new ArrayList();
+	public static int[][] list;
 
-		N=sc.nextInt();
-		M=sc.nextInt();
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		int i, j;
+		int N=sc.nextInt();
+		list = new int[N][N];
 
 		for (i=0; i<N; i++)
-			array.add(sc.next());
-		for (i=0; i<M; i++) {
-			word = sc.next();
-			if (array.contains(word)) {
-				list.add(word);
-			}
-		}
-		Collections.sort(list);
-		System.out.println(list.size());
-		for (var w : list)
-			System.out.println(w);
+			for (j=0; j<N; j++)
+				list[i][j] = sc.nextInt();
+
+		for (i=0; i<N; i++)
+			for (j=0; j<N; j++)
+				System.out.println(list[i][j]);
 	}
 }
