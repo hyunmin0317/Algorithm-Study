@@ -1,24 +1,24 @@
-import java.util.Scanner;
+import java.util.*;
 
 public class Main {
-	public static int cal(String number) {
-		int sum=0;
-		String[] numbers = number.split("\\+");
-		for (var num: numbers)
-			sum+=Integer.parseInt(num);
-		return sum;
-	}
+	public static int N, M;
+	public static String pokemon, key;
+	public static Map<String,String> map;
 
 	public static void main(String[] args) {
+		map=new HashMap();
 		Scanner sc = new Scanner(System.in);
-		int sum;
-		String[] plus;
-		String str = sc.nextLine();
-		String[] numbers = str.split("-");
+		N = sc.nextInt();
+		M = sc.nextInt();
 
-		sum = cal(numbers[0]);
-		for (int i=1;i<numbers.length;i++)
-			sum -= cal(numbers[i]);
-		System.out.println(sum);
+		for (int i=1;i<=N;i++) {
+			pokemon = sc.next();
+			map.put(pokemon, String.valueOf(i));
+			map.put(String.valueOf(i), pokemon);
+		}
+		for (int i=0;i<M;i++) {
+			key = sc.next();
+			System.out.println(map.get(key));
+		}
 	}
 }
