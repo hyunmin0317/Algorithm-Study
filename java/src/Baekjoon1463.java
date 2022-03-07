@@ -5,7 +5,7 @@ import static java.lang.Math.min;
 public class Baekjoon1463 {
     static int N, num;
     static int MAX=1000001;
-    static int[] cal= new int[MAX];
+    static int[] cal=new int[MAX];
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);

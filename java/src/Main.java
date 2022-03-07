@@ -1,50 +1,29 @@
-import java.util.*;
+import java.util.Scanner;
+
+import static java.lang.Math.max;
 
 public class Main {
-	static Queue<int[]> queue;
-	static int[][] list;
-	static boolean[][] visit;
-	static int N, M;
-	static int[] dx = {0, -1, 0, 1};
-	static int[] dy = {1, 0, -1, 0};
+	static int[] ans, list;
 
-	public static void bfs(int x, int y) {
-		visit[x][y] = true;
-		queue.add(new int[]{x, y});
-
-		while(!queue.isEmpty()) {
-			int[] temp = queue.poll();
-			for (int i = 0; i < 4; i++) {
-				int cx = temp[0] + dx[i];
-				int cy = temp[1] + dy[i];
-
-				if (cx >= 0 && cy >= 0 && cx < N && cy < M) {
-					if (!visit[cx][cy] && list[cx][cy] != 0) {
-						queue.add(new int[]{cx, cy});
-						list[cx][cy] = list[temp[0]][temp[1]]+1;
-						visit[cx][cy] = true;
-					}
-				}
-			}
-		}
+	static int find(int n) {
+		if (ans[n]==0 && n>2)
+			ans[n] = max(find(n-2), find(n-3)+list[n-1]) +list[n];
+		return ans[n];
 	}
 
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
-		String[] numbers;
-		N=sc.nextInt();
-		M=sc.nextInt();
-		list = new int[N][M];
-		visit = new boolean[N][M];
-		queue = new LinkedList();
+		int N = sc.nextInt();
+		ans = new int[N+1];
+		list = new int[N+1];
 
-		for (int i=0; i<N; i++) {
-			numbers=sc.next().split("");
-			for (int j=0; j<M; j++)
-				list[i][j]=Integer.parseInt(numbers[j]);
-		}
+		for (int i=1; i<=N; i++)
+			list[i] = sc.nextInt();
 
-		bfs(0,0);
-		System.out.println(list[N-1][M-1]);
+		ans[1]=list[1];
+		if (N!=1)
+			ans[2]=list[1]+list[2];
+
+		System.out.println(find(N));
 	}
 }
