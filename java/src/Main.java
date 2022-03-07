@@ -1,29 +1,40 @@
 import java.util.Scanner;
 
-import static java.lang.Math.max;
-
 public class Main {
-	static int[] ans, list;
+	static int N, M;
+	static int cnt=-1;
+	static boolean[][] vertex;
+	static boolean[] visit;
 
-	static int find(int n) {
-		if (ans[n]==0 && n>2)
-			ans[n] = max(find(n-2), find(n-3)+list[n-1]) +list[n];
-		return ans[n];
+	public static void dfs(int i) {
+		if (visit[i])
+			return;
+
+		visit[i] = true;
+		cnt++;
+
+		for (int j = 1; j <= N; j++) {
+			if (!visit[j] && vertex[i][j]) {
+				dfs(j);
+			}
+		}
 	}
 
 	public static void main(String[] args) {
+		int x, y;
 		Scanner sc = new Scanner(System.in);
-		int N = sc.nextInt();
-		ans = new int[N+1];
-		list = new int[N+1];
+		N = sc.nextInt();
+		M = sc.nextInt();
+		vertex=new boolean[N+1][N+1];
+		visit=new boolean[N+1];
 
-		for (int i=1; i<=N; i++)
-			list[i] = sc.nextInt();
+		for (int i=0; i<M; i++) {
+			x = sc.nextInt();
+			y = sc.nextInt();
+			vertex[x][y] = vertex[y][x] = true;
+		}
 
-		ans[1]=list[1];
-		if (N!=1)
-			ans[2]=list[1]+list[2];
-
-		System.out.println(find(N));
+		dfs(1);
+		System.out.println(cnt);
 	}
 }
