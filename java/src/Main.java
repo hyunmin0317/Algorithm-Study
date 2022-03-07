@@ -1,58 +1,20 @@
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class Main {
-	static int N;
-	static int index=0;
-	static int[] dx = {0, -1, 0, 1};
-	static int[] dy = {1, 0, -1, 0};
-	static int[] ans;
-	static int[][] vertex;
-	static boolean[][] visit;
-
-	public static void dfs(int x, int y) {
-		visit[x][y] = true;
-		ans[index]++;
-
-		for (int i = 0; i < 4; i++) {
-			int cx = x + dx[i];
-			int cy = y + dy[i];
-
-			if (cx >= 0 && cy >= 0 && cx < N && cy < N)
-				if (vertex[cx][cy] == 1 && !visit[cx][cy])
-					dfs(cx, cy);
-		}
-	}
-
 	public static void main(String[] args) {
+		int T, n=11;
+		int[] cnt = new int[n];
 		Scanner sc = new Scanner(System.in);
-		String temp;
-		String[] temps;
-		N = sc.nextInt();
-		ans = new int[N*N];
-		vertex = new int[N][N];
-		visit = new boolean[N][N];
+		T=sc.nextInt();
 
-		for (int i=0; i<N; i++) {
-			temp = sc.next();
-			temps = temp.split("");
-			for (int j=0; j < N; j++)
-				vertex[i][j] = Integer.parseInt(temps[j]);
-		}
+		cnt[1]=1;
+		cnt[2]=2;
+		cnt[3]=4;
 
+		for (int i=4; i<n; i++)
+			cnt[i] = cnt[i-1] + cnt[i-2] + cnt[i-3];
 
-		for(int i=0; i<N; i++){
-			for(int j=0; j<N; j++){
-				if(vertex[i][j] == 1 && !visit[i][j]){
-					index++;
-					dfs(i,j);
-				}
-			}
-		}
-		Arrays.sort(ans);
-		System.out.println(index);
-		for (int a:ans)
-			if (a!=0)
-				System.out.println(a);
+		for (int i=0; i<T; i++)
+			System.out.println(cnt[sc.nextInt()]);
 	}
 }
