@@ -1,47 +1,58 @@
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Main {
-	public static int[][] list;
-	public static int[] cnt = new int[2];
+	static int N;
+	static int index=0;
+	static int[] dx = {0, -1, 0, 1};
+	static int[] dy = {1, 0, -1, 0};
+	static int[] ans;
+	static int[][] vertex;
+	static boolean[][] visit;
 
-	public static boolean confirm(int x, int y, int size) {
-		int n = list[x][y];
-		for (int i=x; i<x+size; i++)
-			for (int j=y; j<y+size; j++)
-				if (n!=list[i][j])
-					return false;
-		return true;
-	}
+	public static void dfs(int x, int y) {
+		visit[x][y] = true;
+		ans[index]++;
 
-	public static void count(int x, int y, int size) {
+		for (int i = 0; i < 4; i++) {
+			int cx = x + dx[i];
+			int cy = y + dy[i];
 
-		if (size==1)
-			cnt[list[x][y]]++;
-		else {
-			if (confirm(x, y, size)) {
-				cnt[list[x][y]]++;
-			}
-			else {
-				for (int i=x; i<x+size; i+=size/2)
-					for (int j=y; j<y+size; j+=size/2) {
-						count(i, j, size/2);
-					}
-			}
+			if (cx >= 0 && cy >= 0 && cx < N && cy < N)
+				if (vertex[cx][cy] == 1 && !visit[cx][cy])
+					dfs(cx, cy);
 		}
 	}
 
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
-		int i, j;
-		int N=sc.nextInt();
-		list = new int[N][N];
+		String temp;
+		String[] temps;
+		N = sc.nextInt();
+		ans = new int[N*N];
+		vertex = new int[N][N];
+		visit = new boolean[N][N];
 
-		for (i=0; i<N; i++)
-			for (j=0; j<N; j++)
-				list[i][j] = sc.nextInt();
+		for (int i=0; i<N; i++) {
+			temp = sc.next();
+			temps = temp.split("");
+			for (int j=0; j < N; j++)
+				vertex[i][j] = Integer.parseInt(temps[j]);
+		}
 
-		count(0,0,N);
-		for (i=0; i<2; i++)
-			System.out.println(cnt[i]);
+
+		for(int i=0; i<N; i++){
+			for(int j=0; j<N; j++){
+				if(vertex[i][j] == 1 && !visit[i][j]){
+					index++;
+					dfs(i,j);
+				}
+			}
+		}
+		Arrays.sort(ans);
+		System.out.println(index);
+		for (int a:ans)
+			if (a!=0)
+				System.out.println(a);
 	}
 }
