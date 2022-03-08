@@ -5,23 +5,45 @@ public class Main {
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
-		Map<Integer, Integer> map = new HashMap();
-		int idx, N = Integer.parseInt(br.readLine());
-		int[] sort, number = new int[N];
-		StringTokenizer st = new StringTokenizer(br.readLine());
+		int T, k, n;
+		String op, input[];
+		TreeMap<Integer, Integer> treeMap;
+		T = Integer.parseInt(br.readLine());
 
-		for (int i=0; i<N; i++)
-			number[i] = Integer.parseInt(st.nextToken());
-		sort=number.clone();
-		Arrays.sort(sort);
+		for (int i=0; i<T; i++) {
+			treeMap = new TreeMap();
+			k = Integer.parseInt(br.readLine());
+			for (int j=0; j<k; j++) {
+				input = br.readLine().split(" ");
+				op=input[0];
+				n=Integer.parseInt(input[1]);
 
-		idx=0;
-		for (int i:sort)
-			if (!map.containsKey(i))
-				map.put(i, idx++);
+				if (op.equals("I"))
+					treeMap.put(n, treeMap.getOrDefault(n, 0) + 1);
+				else {
+					if(!treeMap.isEmpty())
+						if(n == -1) {
+							int minKey = treeMap.firstKey();
+							if(treeMap.get(minKey) == 1)
+								treeMap.remove(minKey);
+							else
+								treeMap.put(minKey, treeMap.get(minKey) - 1);
+						}
+						else {
+							int maxKey = treeMap.lastKey();
+							if(treeMap.get(maxKey) == 1)
+								treeMap.remove(maxKey);
+							else
+								treeMap.put(maxKey, treeMap.get(maxKey) - 1);
+						}
+				}
+			}
 
-		for (int n:number)
-			bw.write(map.get(n)+" ");
+			if(treeMap.isEmpty())
+				bw.write("EMPTY\n");
+			else
+				bw.write(treeMap.lastKey() + " " + treeMap.firstKey() + "\n");
+		}
 		bw.flush();
 	}
 }
