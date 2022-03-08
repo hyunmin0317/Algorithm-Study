@@ -1,44 +1,27 @@
-import java.util.Scanner;
+import java.io.*;
+import java.util.*;
 
 public class Main {
-	static int K, N;
+	public static void main(String args[]) throws IOException {
+		int N, L;
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+		StringTokenizer st = new StringTokenizer(br.readLine());
+		N = Integer.parseInt(st.nextToken());
+		L = Integer.parseInt(st.nextToken());
 
-	public static void main(String args[]) {
-		int max=0;
-		int i, j;
-		String ans = "";
-		String[] num;
-		Scanner sc = new Scanner(System.in);
-		K = sc.nextInt();
-		N = sc.nextInt();
-		num = new String[N];
+		Deque<int[]> q = new ArrayDeque<>();
+		st = new StringTokenizer(br.readLine());
+		for(int i=0; i<N; i++) {
+			int num = Integer.parseInt(st.nextToken());
+			while(!q.isEmpty() && q.peekLast()[0] > num)
+				q.pollLast();
 
-		for (i=0; i<K; i++) {
-			num[i] = sc.next();
-			if (max<Integer.parseInt(num[i]))
-				max = Integer.parseInt(num[i]);
+			q.offer(new int[] {num,i});
+			if(q.peek()[1] < i -(L-1))
+				q.poll();
+			bw.write(q.peek()[0]+" ");
 		}
-		for (j=i; j<N; j++)
-			num[j] = String.valueOf(max);
-		sort(num);
-
-		for (String n:num)
-			ans += n;
-		System.out.println(ans);
-	}
-
-	static void sort(String[] arr) {
-		String temp;
-		for(int i = 0; i < N - 1; i++) {
-			for(int j= 1 ; j < N-i; j++) {
-				String str1 = arr[j - 1] + arr[j];
-				String str2 = arr[j] + arr[j - 1];
-				if(str1.compareTo(str2) < 0) {
-					temp = arr[j-1];
-					arr[j-1] = arr[j];
-					arr[j] = temp;
-				}
-			}
-		}
+		bw.flush();
 	}
 }
