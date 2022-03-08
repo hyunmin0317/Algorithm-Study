@@ -1,15 +1,27 @@
-import java.util.Scanner;
+import java.io.*;
+import java.util.*;
 
 public class Main {
-	public static void main(String[] args) {
-		Scanner sc = new Scanner(System.in);
-		int cnt[] = new int[1001];
-		int n = sc.nextInt();
+	public static void main(String[] args) throws IOException {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+		Map<Integer, Integer> map = new HashMap();
+		int idx, N = Integer.parseInt(br.readLine());
+		int[] sort, number = new int[N];
+		StringTokenizer st = new StringTokenizer(br.readLine());
 
-		cnt[1] = 1;
-		cnt[2] = 2;
-		for (int i=3; i<=n; i++)
-			cnt[i] = (cnt[i-1]+cnt[i-2])%10007;
-		System.out.println(cnt[n]);
+		for (int i=0; i<N; i++)
+			number[i] = Integer.parseInt(st.nextToken());
+		sort=number.clone();
+		Arrays.sort(sort);
+
+		idx=0;
+		for (int i:sort)
+			if (!map.containsKey(i))
+				map.put(i, idx++);
+
+		for (int n:number)
+			bw.write(map.get(n)+" ");
+		bw.flush();
 	}
 }
