@@ -1,61 +1,43 @@
-import java.io.*;
-import java.util.*;
+import java.util.Scanner;
 
 public class Main {
-	static Queue<int[]> queue;
-	static int M ,N, H;
-	static int[][][] vertex;
-	static int[] dx = { -1, 1, 0, 0, 0, 0 };
-	static int[] dy = { 0, 0, -1, 1, 0, 0 };
-	static int[] dz = { 0, 0, 0, 0, -1, 1 };
+	static int K, N;
 
-	public static void main(String args[]) throws Exception {
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		String[] str = br.readLine().split(" ");
-		M = Integer.parseInt(str[0]);
-		N = Integer.parseInt(str[1]);
-		H = Integer.parseInt(str[2]);
-		vertex = new int[N][M][H];
-		queue = new LinkedList();
+	public static void main(String args[]) {
+		int max=0;
+		int i, j;
+		String ans = "";
+		String[] num;
+		Scanner sc = new Scanner(System.in);
+		K = sc.nextInt();
+		N = sc.nextInt();
+		num = new String[N];
 
-		for (int k = 0; k < H; k++)
-			for (int i = 0; i < N; i++) {
-				str = br.readLine().split(" ");
-				for (int j = 0; j < M; j++) {
-					vertex[i][j][k] = Integer.parseInt(str[j]);
-					if (vertex[i][j][k] == 1)
-						queue.add(new int[]{i, j, k});
-				}
-			}
-		bfs();
-		System.out.println(ans());
+		for (i=0; i<K; i++) {
+			num[i] = sc.next();
+			if (max<Integer.parseInt(num[i]))
+				max = Integer.parseInt(num[i]);
+		}
+		for (j=i; j<N; j++)
+			num[j] = String.valueOf(max);
+		sort(num);
+
+		for (String n:num)
+			ans += n;
+		System.out.println(ans);
 	}
 
-	public static int ans() {
-		int max = 0;
-		for (int k = 0; k < H; k++)
-			for (int i = 0; i < N; i++) {
-				for (int j = 0; j < M; j++) {
-					if (vertex[i][j][k] == 0) {
-						return -1;
-					}
-					max = Math.max(max, vertex[i][j][k]);
+	static void sort(String[] arr) {
+		String temp;
+		for(int i = 0; i < N - 1; i++) {
+			for(int j= 1 ; j < N-i; j++) {
+				String str1 = arr[j - 1] + arr[j];
+				String str2 = arr[j] + arr[j - 1];
+				if(str1.compareTo(str2) < 0) {
+					temp = arr[j-1];
+					arr[j-1] = arr[j];
+					arr[j] = temp;
 				}
-			}
-		return max-1;
-	}
-
-	public static void bfs() {
-		while (!queue.isEmpty()) {
-			int[] num = queue.poll();
-			for (int i = 0; i < 6; i++) {
-				int nextX = num[0] + dx[i];
-				int nextY = num[1] + dy[i];
-				int nextZ = num[2] + dz[i];
-				if (nextX < 0 || nextY < 0 || nextZ < 0 || nextX >= N || nextY >= M || nextZ >= H || vertex[nextX][nextY][nextZ] != 0)
-					continue;
-				vertex[nextX][nextY][nextZ] = vertex[num[0]][num[1]][num[2]] + 1;
-				queue.add(new int[]{nextX, nextY, nextZ});
 			}
 		}
 	}
