@@ -3,8 +3,8 @@ import java.util.Scanner;
 public class Baekjoon11726 {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
+        int cnt[] = new int[1001];
         int n = sc.nextInt();
-        int cnt[] = new int[n+1];
 
         cnt[1] = 1;
         cnt[2] = 2;
