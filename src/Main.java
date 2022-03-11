@@ -1,30 +1,21 @@
-import java.util.*;
+import java.util.Scanner;
 
 public class Main {
 	public static void main(String args[]) {
 		Scanner sc = new Scanner(System.in);
-		Map<String, Integer> map;
-		String name;
-		int i, j, n, sum, T = sc.nextInt();
+		int i, N, T = sc.nextInt();
+		int MAX = 101;
+		long[] list = new long[MAX];
+
+		list[1]=1;
+		list[2]=1;
+
+		for (i=3; i<MAX; i++)
+			list[i] = list[i-2] + list[i-3];
 
 		for (i=0; i<T; i++) {
-			map = new HashMap();
-			n = sc.nextInt();
-			sum = 1;
-
-			for (j=0; j<n; j++) {
-				sc.next();
-				name = sc.next();
-
-				if (map.containsKey(name))
-					map.replace(name, map.get(name)+1);
-				else
-					map.put(name, 1);
-			}
-
-			for (int num:map.values())
-				sum *= (num+1);
-			System.out.println(sum-1);
+			N = sc.nextInt();
+			System.out.println(list[N]);
 		}
 	}
 }
