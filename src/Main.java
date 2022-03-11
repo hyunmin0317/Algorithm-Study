@@ -1,21 +1,26 @@
 import java.util.Scanner;
 
 public class Main {
-	public static void main(String args[]) {
+	public static String make(int n) {
+		String str = "I";
+		for (int i=0; i<n; i++)
+			str += "OI";
+		return str;
+	}
+
+	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
-		int i, N, T = sc.nextInt();
-		int MAX = 101;
-		long[] list = new long[MAX];
+		int N = sc.nextInt();
+		sc.nextInt();
+		String search = make(N);
+		String S = sc.next();
+		int i, cnt=0;
 
-		list[1]=1;
-		list[2]=1;
-
-		for (i=3; i<MAX; i++)
-			list[i] = list[i-2] + list[i-3];
-
-		for (i=0; i<T; i++) {
-			N = sc.nextInt();
-			System.out.println(list[N]);
+		i = S.indexOf(search);
+		while (i!=-1) {
+			i = S.indexOf(search, i+1);
+			cnt++;
 		}
+		System.out.println(cnt);
 	}
 }
