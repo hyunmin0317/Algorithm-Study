@@ -1,19 +1,30 @@
-import java.util.Scanner;
+import java.util.*;
 
 public class Main {
 	public static void main(String args[]) {
 		Scanner sc = new Scanner(System.in);
-		int a, b;
-		int N = sc.nextInt();
-		int M = sc.nextInt();
-		int[] numbers = new int[N+1];
-		for (int i=1; i<=N; i++)
-			numbers[i] = numbers[i-1]+sc.nextInt();
+		Map<String, Integer> map;
+		String name;
+		int i, j, n, sum, T = sc.nextInt();
 
-		for (int j=0; j<M; j++) {
-			a = sc.nextInt();
-			b = sc.nextInt();
-			System.out.println(numbers[b]-numbers[a-1]);
+		for (i=0; i<T; i++) {
+			map = new HashMap();
+			n = sc.nextInt();
+			sum = 1;
+
+			for (j=0; j<n; j++) {
+				sc.next();
+				name = sc.next();
+
+				if (map.containsKey(name))
+					map.replace(name, map.get(name)+1);
+				else
+					map.put(name, 1);
+			}
+
+			for (int num:map.values())
+				sum *= (num+1);
+			System.out.println(sum-1);
 		}
 	}
 }
