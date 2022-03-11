@@ -1,22 +1,21 @@
-import java.util.*;
-
-import static java.lang.Math.min;
+import java.util.Scanner;
 
 public class Main {
 	public static void main(String args[]) {
 		Scanner sc = new Scanner(System.in);
-		int min, n = sc.nextInt();
-		int[] number = new int[n+1];
-		number[1] = 1;
+		int cnt = 0;
+		int N = sc.nextInt();
+		int K = sc.nextInt();
+		int[] coins = new int[N];
+		for (int i=0; i<N; i++)
+			coins[i] = sc.nextInt();
 
-		for (int i=2; i<=n; i++) {
-			min=5;
-			for (int j=1; j*j<=i; j++) {
-				int tmp = i-j*j;
-				min = min(min, number[tmp]);
+		for (int j=N-1; j>=0; j--) {
+			while (K>=coins[j]) {
+				K -= coins[j];
+				cnt++;
 			}
-			number[i] = min+1;
 		}
-		System.out.println(number[n]);
+		System.out.println(cnt);
 	}
 }
