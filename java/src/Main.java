@@ -3,19 +3,17 @@ import java.util.Scanner;
 public class Main {
 	public static void main(String args[]) {
 		Scanner sc = new Scanner(System.in);
-		int cnt = 0;
+		int a, b;
 		int N = sc.nextInt();
-		int K = sc.nextInt();
-		int[] coins = new int[N];
-		for (int i=0; i<N; i++)
-			coins[i] = sc.nextInt();
+		int M = sc.nextInt();
+		int[] numbers = new int[N+1];
+		for (int i=1; i<=N; i++)
+			numbers[i] = numbers[i-1]+sc.nextInt();
 
-		for (int j=N-1; j>=0; j--) {
-			while (K>=coins[j]) {
-				K -= coins[j];
-				cnt++;
-			}
+		for (int j=0; j<M; j++) {
+			a = sc.nextInt();
+			b = sc.nextInt();
+			System.out.println(numbers[b]-numbers[a-1]);
 		}
-		System.out.println(cnt);
 	}
 }
