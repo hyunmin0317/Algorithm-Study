@@ -14,9 +14,8 @@
 
 * ### [Java](https://www.oracle.com/java/)
 
-<br>
-
 ## :star: Stats
+
 <a href="https://solved.ac/choihm9903">
   <img src="http://mazassumnida.wtf/api/v2/generate_badge?boj=choihm9903" />
 </a>
