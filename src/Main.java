@@ -1,26 +1,29 @@
-import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.Collections;
+import java.util.PriorityQueue;
 
 public class Main {
-	public static String make(int n) {
-		String str = "I";
-		for (int i=0; i<n; i++)
-			str += "OI";
-		return str;
-	}
+	public static void main(String[] args) throws IOException {
+		int N, x;
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+//		PriorityQueue<Integer> maxhip = new PriorityQueue();
+		PriorityQueue<Integer> queue = new PriorityQueue(Collections.reverseOrder());
 
-	public static void main(String[] args) {
-		Scanner sc = new Scanner(System.in);
-		int N = sc.nextInt();
-		sc.nextInt();
-		String search = make(N);
-		String S = sc.next();
-		int i, cnt=0;
+		N=Integer.parseInt(br.readLine());
 
-		i = S.indexOf(search);
-		while (i!=-1) {
-			i = S.indexOf(search, i+1);
-			cnt++;
+		for (int i=0; i<N; i++) {
+			x = Integer.parseInt(br.readLine());
+
+			if (x==0) {
+				if (queue.isEmpty())
+					System.out.println(0);
+				else
+					System.out.println(queue.poll());
+			}
+			else
+				queue.add(x);
 		}
-		System.out.println(cnt);
 	}
 }
