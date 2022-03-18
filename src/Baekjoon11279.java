@@ -22,3 +22,26 @@ public class Baekjoon11279 {
         }
     }
 }
+
+class Numbers implements Comparable<Numbers> {
+    int num;
+    int abs;
+
+    public Numbers(int num, int ads) {
+        this.num = num;
+        this.abs = ads;
+    }
+
+    @Override
+    public int compareTo(Numbers o) {
+        if (abs==o.abs)
+            return num-o.num;
+        else
+            return abs-o.abs;
+    }
+
+    @Override
+    public String toString() {
+        return String.valueOf(num);
+    }
+}
