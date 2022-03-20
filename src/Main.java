@@ -1,28 +1,40 @@
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.Scanner;
 
 public class Main {
-	public static void main(String[] args) {
-		Scanner sc = new Scanner(System.in);
-		int T = sc.nextInt();
+	static int[][] vertex;
+	static int N;
 
-		for (int tc = 1; tc <= T; tc++) {
-			int M = sc.nextInt(), N = sc.nextInt(), x = sc.nextInt(), y = sc.nextInt();
-			int n = 0, ans = -1, lcm = M * N / gcd(M, N);
+	public static void bfs(int i) {
+		Queue<Integer> queue = new LinkedList();
+		int[] visit = new int[N];
+		queue.offer(i);
 
-			while (n * M < lcm) {
-				if ((n * M + x - y) % N == 0) {
-					ans = n * M + x;
-					break;
+		while(!queue.isEmpty()) {
+			int temp = queue.poll();
+			for(int j = 0; j < N; j++) {
+				if(vertex[temp][j]==1 && visit[j]==0) {
+					visit[j] = 1;
+					queue.offer(j);
 				}
-				n++;
 			}
-			System.out.println(ans);
 		}
+		for (int n:visit)
+			System.out.print(n+" ");
+		System.out.println();
 	}
 
-	static int gcd(int n1, int n2) {
-		if (n2 == 0)
-			return n1;
-		return gcd(n2, n1 % n2);
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		N = sc.nextInt();
+		vertex = new int[N][N];
+
+		for (int i=0; i<N; i++)
+			for (int j=0; j<N; j++)
+				vertex[i][j] = sc.nextInt();
+
+		for (int i=0; i<N; i++)
+			bfs(i);
 	}
 }
