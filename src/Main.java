@@ -1,50 +1,45 @@
-import java.util.*;
+import java.util.LinkedList;
+import java.util.Queue;
+import java.util.Scanner;
 
 public class Main {
-	static Deque<Integer> deque;
-	static String commands;
+	static final int MAX = 101;
+	static boolean[] visit = new boolean[MAX];
+	static int[] list = new int[MAX];
+	static int[] arr = new int[MAX];
 
-	public static void main(String[] args) {
-		Scanner sc = new Scanner(System.in);
-		int n, T = sc.nextInt();
+	public static void bfs(int x) {
+		Queue<Integer> queue = new LinkedList();
+		visit[x] = true;
+		queue.add(x);
 
-		for (int tc = 1; tc <= T; tc++) {
-			commands = sc.next();
-			n = sc.nextInt();
-			String arr = sc.next();
-			deque = new LinkedList<>();
-			for (String s : arr.substring(1, arr.length() - 1).split(","))
-				if (!s.equals(""))
-					deque.add(Integer.valueOf(s));
+		while(!queue.isEmpty()) {
+			int temp = queue.poll();
+			for (int i = 1; i <= 6; i++) {
+				int go = temp+i;
 
-			System.out.println(ac());
+				if (go >= 0 && go <= 100) {
+					if (list[go]!=0)
+						go = list[go];
+					if (!visit[go]) {
+						queue.add(go);
+						arr[go] = arr[temp] + 1;
+						visit[go] = true;
+					}
+				}
+			}
 		}
 	}
 
-	public static String ac() {
-		boolean reverse = false;
+	public static void main(String[] args) {
+		int N, M;
+		Scanner sc = new Scanner(System.in);
+		N = sc.nextInt();
+		M = sc.nextInt();
+		for (int i=0; i<N+M; i++)
+			list[sc.nextInt()] = sc.nextInt();
 
-		for (char command : commands.toCharArray()) {
-			if (command == 'R')
-				reverse = !reverse;
-			else {
-				if (deque.size() == 0)
-					return "error";
-				if (reverse)
-					deque.removeLast();
-				else
-					deque.removeFirst();
-			}
-		}
-
-		StringBuilder sb = new StringBuilder("[");
-		while (!deque.isEmpty()) {
-			sb.append(reverse ? deque.removeLast() : deque.removeFirst());
-			if (deque.size() != 0)
-				sb.append(',');
-		}
-		sb.append(']');
-
-		return sb.toString();
+		bfs(1);
+		System.out.println(arr[100]);
 	}
 }
