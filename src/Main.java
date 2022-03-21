@@ -1,60 +1,76 @@
-import java.util.LinkedList;
-import java.util.Queue;
-import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 
 public class Main {
-	static final int MAX = 10000;
-	static Queue<Integer> queue = new LinkedList();
-	static String[] ans;
-	static boolean[] visit;
+	static int N, M, max;
+	static int[][] arr;
+	static boolean[][] visited;
+	static int[] dx = { -1, 0, 1, 0 };
+	static int[] dy = { 0, -1, 0, 1 };
 
-	public static void bfs(int x) {
-		int D, S, L, R;
-		visit = new boolean[MAX];
-		ans = new String[MAX];
-		for (int i=0; i<MAX; i++)
-			ans[i] = "";
+	public static void main(String[] args) throws Exception {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		String[] str = br.readLine().split(" ");
+		N = Integer.parseInt(str[0]);
+		M = Integer.parseInt(str[1]);
+		arr = new int[N][M];
+		visited = new boolean[N][M];
+		max = 0;
 
-		visit[x] = true;
-		queue.add(x);
-
-		while(!queue.isEmpty()) {
-			int temp = queue.poll();
-
-			D = (temp*2) % 10000;
-			S = (temp==0)?9999:temp-1;
-			L = (temp%1000)*10+temp/1000;
-			R = (temp%10)*1000+temp/10;
-
-			if (!visit[D]) {
-				queue.add(D);
-				ans[D] = ans[temp] + "D";
-				visit[D] = true;
+		for (int i = 0; i < N; i++) {
+			str = br.readLine().split(" ");
+			for (int j = 0; j < M; j++)
+				arr[i][j] = Integer.parseInt(str[j]);
+		}
+		for (int i = 0; i < N; i++)
+			for (int j = 0; j < M; j++) {
+				DFS(i, j, 0, 0);
+				Exception(i, j);
 			}
-			if (!visit[S]) {
-				queue.add(S);
-				ans[S] = ans[temp] + "S";
-				visit[S] = true;
+		System.out.println(max);
+	}
+
+	public static void DFS(int x, int y, int depth, int sum) {
+		if (depth == 4) {
+			max = Math.max(max, sum);
+			return;
+		}
+		for (int i = 0; i < 4; i++) {
+			int nextX = x + dx[i];
+			int nextY = y + dy[i];
+
+			if (nextX < 0 || nextY < 0 || nextX >= N || nextY >= M) {
+				continue;
 			}
-			if (!visit[L]) {
-				queue.add(L);
-				ans[L] = ans[temp] + "L";
-				visit[L] = true;
+			if (visited[nextX][nextY]) {
+				continue;
 			}
-			if (!visit[R]) {
-				queue.add(R);
-				ans[R] = ans[temp] + "R";
-				visit[R] = true;
-			}
+			visited[nextX][nextY] = true;
+			DFS(nextX, nextY, depth + 1, sum + arr[nextX][nextY]);
+			visited[nextX][nextY] = false;
 		}
 	}
 
-	public static void main(String[] args) {
-		Scanner sc = new Scanner(System.in);
-		int T = sc.nextInt();
-		for (int i=0; i<T; i++) {
-			bfs(sc.nextInt());
-			System.out.println(ans[sc.nextInt()]);
+	public static void Exception(int x, int y) {
+		int wing = 4;
+		int min = Integer.MAX_VALUE;
+		int sum = arr[x][y];
+		for (int i = 0; i < 4; i++) {
+			int nextX = x + dx[i];
+			int nextY = y + dy[i];
+
+			if (wing <= 2)
+				return;
+			if (nextX < 0 || nextY < 0 || nextX >= N || nextY >= M) {
+				wing--;
+				continue;
+			}
+			min = Math.min(min, arr[nextX][nextY]);
+			sum = sum + arr[nextX][nextY];
 		}
+
+		if (wing == 4)
+			sum = sum - min;
+		max = Math.max(max, sum);
 	}
 }
