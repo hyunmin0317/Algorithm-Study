@@ -1,37 +1,40 @@
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Main {
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
-		int start, end, mid, sum;
+		int start, end;
 		int N = sc.nextInt();
-		int min = Integer.MAX_VALUE;
-		int[] num = new int[N];
-		int[] ans = new int[2];
+		long sum, min = 3000000000L;
+		long[] num = new long[N];
+		long[] ans = new long[3];
 
 		for (int i=0; i<N; i++)
 			num[i] = sc.nextInt();
+		Arrays.sort(num);
 
-		for (int i=0; i<N; i++) {
+		for (int i=0; i<N-2; i++) {
 			start = i+1;
 			end = N-1;
-			while (start <= end) {
-				mid = (start+end)/2;
-				sum = num[i] + num[mid];
+			while (start < end) {
+				sum = num[start]+num[end]+num[i];
 
 				if (Math.abs(sum) < min) {
-					ans[0] = num[i];
-					ans[1] = num[mid];
+					ans[0] = num[start];
+					ans[1] = num[end];
+					ans[2] = num[i];
 					min = Math.abs(sum);
 				}
 
-				if (sum < 0)
-					start = mid+1;
+				if (sum > 0)
+					end--;
 				else
-					end = mid-1;
+					start++;
 			}
 		}
 
-		System.out.println(ans[0]+" "+ans[1]);
+		Arrays.sort(ans);
+		System.out.println(ans[0]+" "+ans[1]+" "+ans[2]);
 	}
 }
