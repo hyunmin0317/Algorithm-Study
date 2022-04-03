@@ -1,30 +1,37 @@
 import java.util.Scanner;
 
 public class Main {
-
-	public static class Point {
-		long x;
-		long y;
-
-		public Point(long x, long y) {
-			this.x = x;
-			this.y = y;
-		}
-	}
-
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
-		long sum = 0L;
+		int start, end, mid, sum;
 		int N = sc.nextInt();
-		Point[] points = new Point[N+1];
+		int min = Integer.MAX_VALUE;
+		int[] num = new int[N];
+		int[] ans = new int[2];
 
 		for (int i=0; i<N; i++)
-			points[i] = new Point(sc.nextInt(), sc.nextInt());
+			num[i] = sc.nextInt();
 
-		points[N] = points[0];
-		for (int i = 0; i < N; i++)
-			sum += points[i].x * points[i + 1].y - points[i].y * points[i + 1].x;
+		for (int i=0; i<N; i++) {
+			start = i+1;
+			end = N-1;
+			while (start <= end) {
+				mid = (start+end)/2;
+				sum = num[i] + num[mid];
 
-		System.out.println(String.format("%.1f", Math.abs(sum) / 2D));
+				if (Math.abs(sum) < min) {
+					ans[0] = num[i];
+					ans[1] = num[mid];
+					min = Math.abs(sum);
+				}
+
+				if (sum < 0)
+					start = mid+1;
+				else
+					end = mid-1;
+			}
+		}
+
+		System.out.println(ans[0]+" "+ans[1]);
 	}
 }

@@ -15,10 +15,10 @@ public class Baekjoon2166 {
         Scanner sc = new Scanner(System.in);
         long sum = 0L;
         int N = sc.nextInt();
-        Main.Point[] points = new Main.Point[N+1];
+        Point[] points = new Point[N+1];
 
         for (int i=0; i<N; i++)
-            points[i] = new Main.Point(sc.nextInt(), sc.nextInt());
+            points[i] = new Point(sc.nextInt(), sc.nextInt());
 
         points[N] = points[0];
         for (int i = 0; i < N; i++)
