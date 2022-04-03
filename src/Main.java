@@ -1,40 +1,46 @@
-import java.util.Arrays;
-import java.util.Scanner;
+import java.io.*;
+import java.util.*;
 
 public class Main {
-	public static void main(String[] args) {
-		Scanner sc = new Scanner(System.in);
-		int start, end;
-		int N = sc.nextInt();
-		long sum, min = 3000000000L;
-		long[] num = new long[N];
-		long[] ans = new long[3];
+	static int R, C;
+	static int ans = 0;
+	static int[][] board;
+	static boolean[] visit = new boolean[26];
+	static int[] dx = {0, -1, 0, 1};
+	static int[] dy = {1, 0, -1, 0};
 
-		for (int i=0; i<N; i++)
-			num[i] = sc.nextInt();
-		Arrays.sort(num);
+	public static void dfs(int x, int y, int cnt) {
+		if (visit[board[x][y]]) {
+			ans = Math.max(ans, cnt);
+			return;
+		}
+		else {
+			visit[board[x][y]] = true;
+			for (int i = 0; i < 4; i++) {
+				int cx = x + dx[i];
+				int cy = y + dy[i];
 
-		for (int i=0; i<N-2; i++) {
-			start = i+1;
-			end = N-1;
-			while (start < end) {
-				sum = num[start]+num[end]+num[i];
-
-				if (Math.abs(sum) < min) {
-					ans[0] = num[start];
-					ans[1] = num[end];
-					ans[2] = num[i];
-					min = Math.abs(sum);
-				}
-
-				if (sum > 0)
-					end--;
-				else
-					start++;
+				if (cx >= 0 && cy >= 0 && cx < R && cy < C)
+					dfs(cx, cy, cnt+1);
 			}
+			visit[board[x][y]] = false;
+		}
+	}
+
+	public static void main(String[] args) throws IOException {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		StringTokenizer st = new StringTokenizer(br.readLine());
+		R = Integer.parseInt(st.nextToken());
+		C = Integer.parseInt(st.nextToken());
+		board = new int[R][C];
+
+		for (int i=0; i<R; i++) {
+			String a = br.readLine();
+			for (int j=0; j<C; j++)
+				board[i][j] = a.charAt(j)-'A';
 		}
 
-		Arrays.sort(ans);
-		System.out.println(ans[0]+" "+ans[1]+" "+ans[2]);
+		dfs(0,0, 0);
+		System.out.println(ans);
 	}
 }
