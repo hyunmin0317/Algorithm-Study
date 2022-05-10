@@ -4,17 +4,18 @@ import java.util.Scanner;
 public class Main {
 
 	public static void main(String[] args) {
-		int i, N=42, sum=0;
 		Scanner sc = new Scanner(System.in);
-		int[] list = new int[N];
+		int score = sc.nextInt();
 
-		for (i=0; i<10; i++)
-			list[sc.nextInt()%N]++;
-
-		for (i=0; i<N; i++) {
-			if (list[i]!=0)
-				sum++;
-		}
-		System.out.println(sum);
+		if (score<=100 && 90<=score)
+			System.out.println('A');
+		else if (score<=89 && 80<=score)
+			System.out.println('B');
+		else if (score<=79 && 70<=score)
+			System.out.println('C');
+		else if (score<=69 && 60<=score)
+			System.out.println('D');
+		else
+			System.out.println('F');
 	}
 }
