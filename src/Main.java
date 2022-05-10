@@ -5,18 +5,15 @@ public class Main {
 
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
-		int M = sc.nextInt();
-		int i, H, N, X, Y;
+		int r = 31, M = 1234567891;
+		long sum = 0, pow = 1;
+		int i, L = sc.nextInt();
+		String str = sc.next();
 
-		for (i=0; i<M; i++) {
-			H = sc.nextInt();
-			sc.nextInt();
-			N = sc.nextInt();
-
-			X = N%H==0?H:N%H;
-			Y = N%H==0?N/H:N/H+1;
-
-			System.out.println(String.format("%d%02d", X, Y));
+		for (i=0; i<L; i++) {
+			sum += (str.charAt(i)-'a'+1) * pow % M;
+			pow = pow * r % M;
 		}
+		System.out.println(sum % M);
 	}
 }
