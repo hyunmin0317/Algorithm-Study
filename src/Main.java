@@ -5,23 +5,15 @@ public class Main {
 
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
-		int i, N = sc.nextInt();
+		int tmp=0, num=1, ans=1;
+		int N = sc.nextInt();
 
-		for (i=0; i<N; i++) {
-			if (fun(i)==N) {
-				System.out.println(i);
-				return;
-			}
+		while (true) {
+			if (tmp<=N&&N<=num)
+				break;
+			tmp = num+1;
+			num += 6*ans++;
 		}
-		System.out.println(0);
-	}
-
-	private static int fun(int n) {
-		int sum = n;
-		while (n!=0) {
-			sum += n%10;
-			n /= 10;
-		}
-		return sum;
+		System.out.println(ans);
 	}
 }
