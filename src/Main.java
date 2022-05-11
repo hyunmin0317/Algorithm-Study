@@ -4,23 +4,24 @@ import java.util.Scanner;
 public class Main {
 
 	public static void main(String[] args) {
-		int i, j, k, N, M;
-		int sum, max=0;
 		Scanner sc = new Scanner(System.in);
-		N = sc.nextInt();
-		M = sc.nextInt();
-		int[] cards = new int[N];
+		int i, N = sc.nextInt();
 
-		for (i=0; i<N; i++)
-			cards[i] = sc.nextInt();
+		for (i=0; i<N; i++) {
+			if (fun(i)==N) {
+				System.out.println(i);
+				return;
+			}
+		}
+		System.out.println(0);
+	}
 
-		for (i=0; i<N; i++)
-			for (j=i+1; j<N; j++)
-				for (k=j+1; k<N; k++) {
-					sum = cards[i]+cards[j]+cards[k];
-					if (max < sum && sum <= M)
-						max = sum;
-				}
-		System.out.println(max);
+	private static int fun(int n) {
+		int sum = n;
+		while (n!=0) {
+			sum += n%10;
+			n /= 10;
+		}
+		return sum;
 	}
 }
