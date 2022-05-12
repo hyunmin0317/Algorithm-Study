@@ -3,7 +3,6 @@ import java.util.Scanner;
 public class Baekjoon1259 {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        int i;
         String number;
 
         while (true) {
