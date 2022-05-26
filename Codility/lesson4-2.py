@@ -1,13 +1,9 @@
 def solution(A):
-    N = len(A)
-    sets = set()
+    A.sort()
+    past = 0
 
     for num in A:
-        if num > N:
+        if num - past != 1:
             return 0
-        sets.add(num)
-
-    if len(sets) == N:
-        return 1
-    else:
-        return 0
+        past = num
+    return 1
