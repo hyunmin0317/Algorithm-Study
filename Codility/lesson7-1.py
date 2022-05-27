@@ -5,7 +5,7 @@ def solution(S):
         stack.append(s)
 
         if s in dic.keys():
-            c = stack.pop()
+            stack.pop()
             if len(stack) == 0:
                 return 0
             p = stack.pop()
