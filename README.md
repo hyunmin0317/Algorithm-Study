@@ -4,15 +4,20 @@
 
 ---
 
-## :globe_with_meridians: Homepage
+## :computer: Coding Test
 
 * ### [백준 알고리즘](https://www.acmicpc.net/)
 
 * ### [Programmers](https://programmers.co.kr/)
 
-* ### [실전 알고리즘 강좌](https://www.youtube.com/playlist?list=PLRx0vPvlEmdDHxCvAQS1_6XV4deOwfVrz)
+* ### [Codility](https://app.codility.com/programmers/)
+
+* ### [Goorm](https://level.goorm.io/)
+
+## ⚒️Language
 
 * ### [Java](https://www.oracle.com/java/)
+* ### [Python](https://www.python.org/)
 
 ## :star: Stats
 
