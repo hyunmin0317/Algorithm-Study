@@ -1,10 +1,8 @@
-N = int(input())
-arr = list(map(int, input().split()))
-M = int(input())
-ans = list(map(int, input().split()))
+from sys import stdin, stdout
+n = stdin.readline()
+N = set(stdin.readline().split())
+m = stdin.readline()
+M = stdin.readline().split()
 
-for num in ans:
-    if num in arr:
-        print(1)
-    else:
-        print(0)
+for l in M:
+    stdout.write('1\n') if l in N else stdout.write('0\n')
