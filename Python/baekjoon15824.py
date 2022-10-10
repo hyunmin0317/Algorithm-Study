@@ -1,4 +1,16 @@
 MOD = 1000000007
+
+
+def pow(a, b):
+    if b == 0:
+        return 1
+    if b == 1:
+        return a
+
+    half = pow(a, b // 2)
+    return half * half % MOD if b % 2 == 0 else half * half * a % MOD
+
+
 N = int(input())
 arr = sorted(list(map(int, input().split())))
 answer = 0
