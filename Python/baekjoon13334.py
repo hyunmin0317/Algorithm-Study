@@ -1,19 +1,21 @@
-points = []
-n = int(input())
+from heapq import *
 
-for _ in range(n):
-    point = list(map(int, input().split()))
-    point.sort()
-    points.append(point)
-points.sort()
+n = int(input())
+arr = []
+for i in range(n):
+    arr.append(sorted([*map(int, input().split())]))
 d = int(input())
 
 ans = 0
-for i, point in enumerate(points):
-    cnt = 0
-    end = point[0] + d
-    for j in range(i, len(points)):
-        if points[j][1] <= end:
-            cnt += 1
-    ans = max(ans, cnt)
+arr.sort(key=lambda x: [x[1], x[0]])
+people = []
+for i in range(n):
+    if arr[i][1] - arr[i][0] <= d:
+        while people:
+            person = heappop(people)
+            if arr[i][1] - person[0] <= d:
+                heappush(people, person)
+                break
+        heappush(people, arr[i])
+        ans = max(ans, len(people))
 print(ans)
