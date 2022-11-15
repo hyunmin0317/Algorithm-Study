@@ -1,3 +1,6 @@
+import sys
+
+input = sys.stdin.readline
 MOD = int(1e9 + 7)
 N = 4 * int(1e6) + 1
 factorial = [1] * N
