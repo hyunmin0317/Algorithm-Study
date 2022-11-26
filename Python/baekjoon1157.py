@@ -1,17 +1,16 @@
 word = input()
-arr = [0] * 26
+alphabet = [0] * 26
 
 for w in word:
     if w > 'Z':
-        arr[ord(w)-ord('a')] += 1
+        alphabet[ord(w)-ord('a')] += 1
     else:
-        arr[ord(w)-ord('A')] += 1
+        alphabet[ord(w)-ord('A')] += 1
 
-M = max(arr)
-cnt = 0
-idx = 0
+M = max(alphabet)
+cnt, idx = 0, 0
 
-for i, a in enumerate(arr):
+for i, a in enumerate(alphabet):
     if a == M:
         idx = i
         cnt += 1
