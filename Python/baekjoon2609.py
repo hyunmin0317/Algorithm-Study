@@ -1,10 +1,13 @@
-n, m = map(int, input().split())
+def gcd(a, b):
+    while b > 0:
+        a, b = b, a % b
+    return a
 
-gcf = 1
-for num in range(1, max(n,m)+1):
-    if n % num == 0 and m % num == 0:
-        gcf = num
-lcm = n * m // gcf
 
-print(gcf)
-print(lcm)
+def lcm(a, b):
+    return a * b // gcd(a, b)
+
+
+a, b = map(int, input().split())
+print(gcd(a, b))
+print(lcm(a, b))
