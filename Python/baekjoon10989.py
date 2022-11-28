@@ -1,13 +1,13 @@
 import sys
+input = sys.stdin.readline
 
-N = int(sys.stdin.readline())
-M = 10001
-list = [0] * M
+N, M = int(input()), 10001
+num = [0] * M
 
 for i in range(N):
-    list[int(sys.stdin.readline())] += 1
+    num[int(input())] += 1
 
 for i in range(M):
-    if list[i] != 0:
-        for _ in range(list[i]):
+    if num[i] != 0:
+        for _ in range(num[i]):
             print(i)
