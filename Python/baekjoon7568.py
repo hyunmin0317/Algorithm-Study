@@ -1,13 +1,10 @@
-N = int(input())
-arr = []
-
+N, persons = int(input()), []
 for _ in range(N):
-    arr.append(list(map(int, input().split())))
-
+    persons.append(list(map(int, input().split())))
 
 for i in range(N):
     cnt = 1
     for j in range(N):
-        if arr[i][0] < arr[j][0] and arr[i][1] < arr[j][1]:
+        if persons[i][0] < persons[j][0] and persons[i][1] < persons[j][1]:
             cnt += 1
     print(cnt, end=' ')
