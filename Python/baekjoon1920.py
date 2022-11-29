@@ -1,8 +1,12 @@
-from sys import stdin, stdout
-n = stdin.readline()
-N = set(stdin.readline().split())
-m = stdin.readline()
-M = stdin.readline().split()
+import sys
 
-for l in M:
-    stdout.write('1\n') if l in N else stdout.write('0\n')
+input = sys.stdin.readline
+print = sys.stdout.write
+
+N = int(input())
+number = list(map(int, input().split()))
+M = int(input())
+nums = list(map(int, input().split()))
+
+for num in nums:
+    print('1\n') if num in number else print('0\n')
