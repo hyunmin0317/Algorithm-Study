@@ -1,11 +1,9 @@
 N, K = map(int, input().split())
-list = [i for i in range(1, N+1)]
-index = K-1
+circle, removed = [x for x in range(1, N+1)], []
+now = K-1
 
-print('<', end='')
-while len(list) != 1:
-    N-=1
-    print(list[index], end=', ')
-    del list[index]
-    index = (index + K-1) % N
-print(f'{list[0]}>')
+while circle:
+    removed.append(circle.pop(now))
+    if circle:
+        now = ((now-1) + K) % len(circle)
+print(f'<{", ".join(map(str,removed))}>')
