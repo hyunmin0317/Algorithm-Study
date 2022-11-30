@@ -1,21 +1,16 @@
-def check(ps):
-    stack = []
-    for p in ps:
-        if p == '(':
-            stack.append(p)
-        else:
-            if stack:
-                if '(' != stack.pop():
-                    return False
+dic = {']': '[', ')': '('}
+for _ in range(int(input())):
+    word, stack = input(), []
+    for w in word:
+        if w == '[' or w == '(':
+            stack.append(w)
+        elif w == ']' or w == ')':
+            if stack and stack[-1] == dic[w]:
+                stack.pop()
             else:
-                return False
-    return len(stack) == 0
-
-
-T = int(input())
-
-for i in range(T):
-    if check(input()):
-        print('YES')
-    else:
+                stack.append(w)
+                break
+    if stack:
         print('NO')
+    else:
+        print('YES')
