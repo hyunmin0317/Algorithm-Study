@@ -1,11 +1,8 @@
-K = int(input())
-arr = []
-
-for _ in range(K):
+stack = []
+for _ in range(int(input())):
     num = int(input())
     if num == 0:
-        arr.pop()
+        stack.pop()
     else:
-        arr.append(num)
-
-print(sum(arr))
+        stack.append(num)
+print(sum(stack))
