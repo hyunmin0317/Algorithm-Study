@@ -2,28 +2,23 @@ import sys
 
 input = sys.stdin.readline
 stack = []
-N = int(input())
-
-for i in range(N):
+for _ in range(int(input())):
     cmd = input().split()
-
     if len(cmd) == 2:
         stack.append(cmd[1])
     else:
-        cmd = cmd[0]
-
-        if cmd == 'size':
+        if cmd[0] == 'size':
             print(len(stack))
-        elif cmd == 'empty':
+        elif cmd[0] == 'empty':
             if stack:
                 print(0)
             else:
                 print(1)
         else:
             if stack:
-                if cmd == 'top':
-                    print(stack[-1])
-                else:
+                if cmd[0] == 'pop':
                     print(stack.pop())
+                else:
+                    print(stack[-1])
             else:
                 print(-1)
