@@ -2,11 +2,8 @@ import sys
 
 input = sys.stdin.readline
 deque = []
-N = int(input())
-
-for i in range(N):
+for i in range(int(input())):
     cmd = input().split()
-
     if len(cmd) == 2:
         if cmd[0] == 'push_back':
             deque.append(cmd[1])
